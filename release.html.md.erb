@@ -9,11 +9,36 @@ owner: London Services
 
 To view the release notes for another product version, select the version from the drop-down list at the top of this page.
 
+## <a id="1106"></a> v1.10.6
+
+**Release Date: XX X, 2018**
+
+### Fixes
+
+* Fixes an intermittent issue that can cause executing a restore to fail.
+
+### Known Issues
+
+* The redis-odb service broker listens on port `12345`.
+This is inconsistent with other services, but has no effect on tile operations.
+
+* The **When Changed** option for errands has unexpected behaviour.
+Do not select this choice as an errand run-rule.
+For more information about this unexpected behaviour, see
+[Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
+
+* Default persistence is set to full persistence using an AOF file. If an instance is restarted frequently (for example, for upgrades), this file can grow significantly,
+leading to very large persistent disk usage. If your Redis instance has significantly larger persistent disk usage than expected,
+check the size of your `appendonly.aof` file (usually at `/var/vcap/store/redis`) to verify if this is the source of the usage.
+If so, you can mitigate this by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
+
+* The redis-odb fails if arbitrary parameters are changed in an `update-service` command.
+
 ## <a id="1105"></a> v1.10.5
 
 **Release Date: March 7, 2018**
 
-This release updates the stemcell verison.
+This release updates the stemcell version.
 
 ### Compatibility
 
@@ -74,9 +99,9 @@ This release updates the stemcell verison.
 * The redis-odb service broker listens on port `12345`.
 This is inconsistent with other services, but has no effect on tile operations.
 
-* The **When Changed** option for errands has unexpected behavior.
+* The **When Changed** option for errands has unexpected behaviour.
 Do not select this choice as an errand run-rule.
-For more information about this unexpected behavior, see
+For more information about this unexpected behaviour, see
 [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
 
 * Default persistence is set to full persistence using an AOF file. If an instance is restarted frequently (for example, for upgrades), this file can grow significantly,
@@ -85,6 +110,8 @@ check the size of your `appendonly.aof` file (usually at `/var/vcap/store/redis`
 If so, you can mitigate this by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
 
 * The redis-odb fails if arbitrary parameters are changed in an `update-service` command.
+
+* Executing a restore may fail to complete and leave the CONFIG command unaliased.
 
 ## <a id="1104"></a> v1.10.4
 
@@ -153,15 +180,19 @@ If so, you can mitigate this by running the [BGREWRITEAOF](https://redis.io/comm
 * The redis-odb service broker listens on port `12345`.
 This is inconsistent with other services, but has no effect on tile operations.
 
-* The **When Changed** option for errands has unexpected behavior.
+* The **When Changed** option for errands has unexpected behaviour.
 Do not select this choice as an errand run-rule.
-For more information about this unexpected behavior, see
+For more information about this unexpected behaviour, see
 [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
 
 * Default persistence is set to full persistence using an AOF file. If an instance is restarted frequently (for example, for upgrades), this file can grow significantly,
 leading to very large persistent disk usage. If your Redis instance has significantly larger persistent disk usage than expected,
 check the size of your `appendonly.aof` file (usually at `/var/vcap/store/redis`) to verify if this is the source of the usage.
 If so, you can mitigate this by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
+
+* The redis-odb fails if arbitrary parameters are changed in an `update-service` command.
+
+* Executing a restore may fail to complete and leave the CONFIG command unaliased.
 
 ## <a id="1103"></a> v1.10.3
 
@@ -226,9 +257,9 @@ If so, you can mitigate this by running the [BGREWRITEAOF](https://redis.io/comm
 * The redis-odb service broker listens on port `12345`.
 This is inconsistent with other services, but has no effect on tile operations.
 
-* The **When Changed** option for errands has unexpected behavior.
+* The **When Changed** option for errands has unexpected behaviour.
 Do not select this choice as an errand run-rule.
-For more information about this unexpected behavior, see
+For more information about this unexpected behaviour, see
 [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
 
 * Due to a bug with the properties migration logic, tile upgrades in some PCF installations may be blocked.
@@ -237,6 +268,10 @@ For more information about this unexpected behavior, see
 leading to very large persistent disk usage. If your Redis instance has significantly larger persistent disk usage than expected,
 check the size of your `appendonly.aof` file (usually at `/var/vcap/store/redis`) to verify if this is the source of the usage.
 If so, you can mitigate this by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
+
+* The redis-odb fails if arbitrary parameters are changed in an `update-service` command.
+
+* Executing a restore may fail to complete and leave the CONFIG command unaliased.
 
 ## <a id="1102"></a> v1.10.2
 
@@ -306,9 +341,9 @@ has been disabled for security concerns.
 * The redis-odb service broker listens on port `12345`.
 This is inconsistent with other services, but has no effect on tile operations.
 
-* The **When Changed** option for errands has unexpected behavior.
+* The **When Changed** option for errands has unexpected behaviour.
 Do not select this choice as an errand run-rule.
-For more information about this unexpected behavior, see
+For more information about this unexpected behaviour, see
 [Errand Run Rules](https://docs.pivotal.io/tiledev/tile-errands.html#run-rules).
 
 * Due to a bug with the properties migration logic, tile upgrades in some PCF installations may be blocked.
@@ -317,6 +352,10 @@ For more information about this unexpected behavior, see
 leading to very large persistent disk usage. If your Redis instance has significantly larger persistent disk usage than expected,
 check the size of your `appendonly.aof` file (usually at `/var/vcap/store/redis`) to verify if this is the source of the usage.
 If so, you can mitigate this by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
+
+* The redis-odb fails if arbitrary parameters are changed in an `update-service` command.
+
+* Executing a restore may fail to complete and leave the CONFIG command unaliased.
 
 ## <a id="1101"></a> v1.10.1
 
@@ -454,7 +493,7 @@ If so, you can mitigate this by running the [BGREWRITEAOF](https://redis.io/comm
 
 * The redis-odb service broker listens on 12345. This is inconsistent with other services.
 
-* The **When Changed** option for errands has [unexpected behavior](https://docs.pivotal.io/tiledev/tile-errands.html) in what changes trigger the errand. Do not select this option for errands.
+* The **When Changed** option for errands has [unexpected behaviour](https://docs.pivotal.io/tiledev/tile-errands.html) in what changes trigger the errand. Do not select this option for errands.
 
 * Logs for service-backup and service-metrics releases are truncated when syslog is not configured.
 
@@ -464,3 +503,7 @@ If so, you can mitigate this by running the [BGREWRITEAOF](https://redis.io/comm
 leading to very large persistent disk usage. If your Redis instance has significantly larger persistent disk usage than expected,
 check the size of your `appendonly.aof` file (usually at `/var/vcap/store/redis`) to verify if this is the source of the usage.
 If so, you can mitigate this by running the [BGREWRITEAOF](https://redis.io/commands/bgrewriteaof) command.
+
+* The redis-odb fails if arbitrary parameters are changed in an `update-service` command.
+
+* Executing a restore may fail to complete and leave the CONFIG command unaliased.
